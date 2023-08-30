@@ -1,0 +1,10 @@
+
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ğªÎÜ8èğâ“•1
+W
+java:S1118":Add a private constructor to hide the implicit public one.(íìÅÊ8ÿÄ•”•1
+O
+java:S1135"2Complete the task associated to this TODO comment.(…ïœ†8‰ñâ“•1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ØÂÔïÿÿÿÿÿ8Šñâ“•1
+]	java:S125"<This block of commented-out lines of code should be removed.(ÊõŸ«ûÿÿÿÿ8‹ñâ“•1
+\
+java:S1144":Remove this unused private "inputBuyListFromShell" method.(ˆç‡Óÿÿÿÿÿ8ñâ“•1

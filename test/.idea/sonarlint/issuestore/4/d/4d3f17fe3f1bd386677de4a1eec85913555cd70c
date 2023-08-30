@@ -1,0 +1,40 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ş¸¥‡
+U
+java:S1854":Remove this useless assignment to local variable "change".(Œø ìùÿÿÿÿ
+Y
+java:S1854">Remove this useless assignment to local variable "finalPrice".(ÌªË–üÿÿÿÿ
+Y
+java:S1854">Remove this useless assignment to local variable "totalPrice".(ºÀ¶Áıÿÿÿÿ
+]
+java:S1172"BRemove these unused method parameters "basket", "cash", "coupons".(œàÙıÿÿÿÿ
+J
+java:S1481"/Remove this unused "totalPrice" local variable.(ºÀ¶Áıÿÿÿÿ
+J
+java:S1481"/Remove this unused "finalPrice" local variable.(ÌªË–üÿÿÿÿ
+F
+java:S1481"+Remove this unused "change" local variable.(Œø ìùÿÿÿÿ
+g
+java:S11722"LRemove these unused method parameters "coupons", "totalPrice", "finalPrice".(ÊöãŸüÿÿÿÿ
+Q	java:S125/"<This block of commented-out lines of code should be removed.(ÓöÛâ
+b
+java:S1172C"LRemove these unused method parameters "coupons", "finalPrice", "totalPrice".(«Ñ³‡
+Q
+java:S1854S";Remove this useless assignment to local variable "coupons".(Ğ×Øô
+R
+java:S1854R"<Remove this useless assignment to local variable "discount".(øÈÕ¿
+C
+java:S1481R"-Remove this unused "discount" local variable.(øÈÕ¿
+V
+java:S1854a";Remove this useless assignment to local variable "coupons".(ış¤±ÿÿÿÿÿ
+W
+java:S1854`"<Remove this useless assignment to local variable "discount".(Öëúşÿÿÿÿ
+H
+java:S1481`"-Remove this unused "discount" local variable.(Öëúşÿÿÿÿ
+Q	java:S125l"<This block of commented-out lines of code should be removed.(Ô¹¶¦
+S	java:S106x"9Replace this use of System.out or System.err by a logger.(¯±Ùÿıÿÿÿÿ
+M	java:S106y"9Replace this use of System.out or System.err by a logger.(ãÔ­:
+S	java:S106{"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+N	java:S106|"9Replace this use of System.out or System.err by a logger.(ŒË€™
+S	java:S106~"9Replace this use of System.out or System.err by a logger.(Ú°¡õÿÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ª¨¶à
