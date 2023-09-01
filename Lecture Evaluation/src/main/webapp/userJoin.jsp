@@ -20,14 +20,14 @@
     <!--버튼 눌렀을 때 실행되는 부분(화면인 길 때 옆으로 보이고 좁으면 토글로 열도록-->
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="index.jsp">메인</a>
         </li>
         <li class="nav-item dropdown"><!--한 번 눌렀을 때 아래로 목록 정렬-->
           <a class="nav-link dropdown-toggle" id="dropdown" data-toggle="dropdown">회원관리</a>
           <div class="dropdown-menu" aria-labelledby="dropdown">
             <a class="dropdown-item" href="userLogin.jsp">로그인</a>
-            <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
+            <a class="dropdown-item active" href="userJoin.jsp">회원가입</a>
             <a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
           </div>
         </li>

@@ -59,14 +59,14 @@ public class UserDAO {
             return pstmt.executeUpdate();
             //insert, update, delete 같은 함수는 executeUpdate를 활용해 처리, 영향을 받은 데이터 개수 반환 (1)
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();        //오류 출력
-        }finally {
+        } finally {
             //***pstmt, conn은 한번 이상 사용하고 종료 이후에는 finally를 이용해 connection 객체를 닫아 주어야 함.
             //서버에 무리가 가지 않도록
-            try { if (conn != null) conn.close(); }catch (Exception e){ e.printStackTrace(); }
-            try { if (pstmt != null) pstmt.close(); }catch (Exception e){ e.printStackTrace(); }
-            try { if (rs != null) rs.close(); }catch (Exception e){ e.printStackTrace(); }
+            try {if(conn != null) conn.close();} catch (Exception e) {e.printStackTrace();}
+            try {if(pstmt != null) pstmt.close();} catch (Exception e) {e.printStackTrace();}
+            try {if(rs != null) rs.close();} catch (Exception e) {e.printStackTrace();}
         }
         return -1;      //회원가입 실패
     }

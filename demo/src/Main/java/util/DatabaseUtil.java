@@ -10,7 +10,7 @@ public class DatabaseUtil {
     public static Connection getConnection() {  //static : 다른 라이브러리에서 쉽게 사용할 수 있도록
         //접속한 상태 자체를 반환하도록
         try{
-            String dbURL = "jdbc:mysql//localhost:3306/TUTORIAL";
+            String dbURL = "jdbc:mysql://localhost:3306/TUTORIAL";
             //3306포트 번호를 사용하는 TUTORIAL이름의 mysql DB
             String dbID = "root";
             String dbPassword = "1234";
