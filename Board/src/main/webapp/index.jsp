@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="user.WriteDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,8 @@
 </head>
 <body>
   <div>
-    <a href="mainList.jsp" style="pointer-events: none; color: black;">
-      <h1>JSP 게시판</h1></a>
+    <a href="index.jsp" style="pointer-events: none; color: black;">
+      <h1 style="margin-left: 50px; padding: 50px">JSP 게시판</h1></a>
   </div>
   <div class="container">
     <div class="row">

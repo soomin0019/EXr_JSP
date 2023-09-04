@@ -46,4 +46,17 @@ public class WriteDTO {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public WriteDTO() {
+
+    }
+
+    public WriteDTO(int num, String title, String content, String name, String date){
+        super();
+        this.num = num;
+        this.title = title;
+        this.content = content;
+        this.name = name;
+        this.date = date;
+    }
 }
