@@ -114,49 +114,58 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="index.jsp">강의평가 웹 사이트</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-        <!--data-target : navbar 아이디를 가진 요소가 보였다 보이지 않았다가 한다-->
-        <span class="navbar-toggler-icon"></span> <!--짝대기 3개가 그어져 있는 아이콘-->
-    </button>
-    <!--버튼 눌렀을 때 실행되는 부분(화면인 길 때 옆으로 보이고 좁으면 토글로 열도록-->
-    <div id="navbar" class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">메인</a>
-            </li>
-            <li class="nav-item dropdown"><!--한 번 눌렀을 때 아래로 목록 정렬-->
-                <a class="nav-link dropdown-toggle" id="dropdown" data-toggle="dropdown">회원관리</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown">
-                    <a class="dropdown-item" href="userLogin.jsp">로그인</a>
-                    <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
-                    <a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
-                </div>
-            </li>
-        </ul>
-        <!--검색창 기능-->
-        <form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-2" type="submit">검색</button>
-        </form>
-    </div>
-</nav>
-<!--본문이 들어가는 공간-->
-<section class="container mt-3" style="max-width: 560px">
-    <div class = "alert alert-success mt-4" role="alert">
-        이메일 주소 인증 메일이 전송되었습니다. 회원가입시 입력했던 이메일에 들어가서 인증해주세요
-    </div>
-</section>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.jsp">강의평가 웹 사이트</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+            <!--data-target : navbar 아이디를 가진 요소가 보였다 보이지 않았다가 한다-->
+            <span class="navbar-toggler-icon"></span> <!--짝대기 3개가 그어져 있는 아이콘-->
+        </button>
+        <!--버튼 눌렀을 때 실행되는 부분(화면인 길 때 옆으로 보이고 좁으면 토글로 열도록-->
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.jsp">메인</a>
+                </li>
+                <li class="nav-item dropdown"><!--한 번 눌렀을 때 아래로 목록 정렬-->
+                    <a class="nav-link dropdown-toggle" id="dropdown" data-toggle="dropdown">회원관리</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown">
+                        <%
+                            if(userID == null) {
+                        %>
+                        <a class="dropdown-item" href="userLogin.jsp">로그인</a>
+                        <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
+                        <%
+                        } else {
+                        %>
+                        <a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
+                        <%
+                            }
+                        %>
+                    </div>
+                </li>
+            </ul>
+            <!--검색창 기능-->
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-2" type="submit">검색</button>
+            </form>
+        </div>
+    </nav>
+    <!--본문이 들어가는 공간-->
+    <section class="container mt-3" style="max-width: 560px">
+        <div class = "alert alert-success mt-4" role="alert">
+            이메일 주소 인증 메일이 전송되었습니다. 회원가입시 입력했던 이메일에 들어가서 인증해주세요
+        </div>
+    </section>
 
-<footer class="bg-dark mt-4 p-5 text-center" style="color: #FFFFFF">
-    Copyright&copy; 2022나동빈  All Rights Reserved
-</footer>
+    <footer class="bg-dark mt-4 p-5 text-center" style="color: #FFFFFF">
+        Copyright&copy; 2022나동빈  All Rights Reserved
+    </footer>
 
-<!--제이쿼리, 파퍼, 부트스트랩 자바스크립트 추가-->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!--제이쿼리, 파퍼, 부트스트랩 자바스크립트 추가-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
