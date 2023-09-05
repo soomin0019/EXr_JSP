@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<<<<<<< HEAD
 <%@ page import="java.io.PrintWriter" %>
+=======
+<%@ page import ="java.io.PrintWriter" %>
+>>>>>>> 79ed31e45e6b3c54174ccb42c8550d43c8ff2784
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +16,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+<<<<<<< HEAD
   <%
     String userID = null;
     if(session.getAttribute("userID") != null) {
@@ -28,6 +33,23 @@
     }
 
   %>
+=======
+<%
+  String userID = null;
+  if(session.getAttribute("userID") != null) {
+    userID = (String) session.getAttribute("userID");
+  }
+  if(userID != null) {
+    PrintWriter script = response.getWriter();
+    script.println("<script>");
+    script.println("alert('로그인이 된 상태입니다.');");
+    script.println("location.href = 'index.jsp';");
+    script.println("</script>");
+    script.close();
+    /*return;*/
+  }
+%>
+>>>>>>> 79ed31e45e6b3c54174ccb42c8550d43c8ff2784
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index.jsp">강의평가 웹 사이트</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -37,7 +59,7 @@
     <!--버튼 눌렀을 때 실행되는 부분(화면인 길 때 옆으로 보이고 좁으면 토글로 열도록-->
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="index.jsp">메인</a>
         </li>
         <li class="nav-item dropdown"><!--한 번 눌렀을 때 아래로 목록 정렬-->
