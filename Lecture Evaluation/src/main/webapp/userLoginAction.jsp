@@ -14,23 +14,21 @@
 <%@ page import="java.io.PrintWriter" %>    <%--특정한 스크립트 구문 출력할 때 사용--%>
 
 <%
-    request.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");  //사용자로부터 입력받은 정보는 모두 UTF8로 처리
     String userID = null;
     String userPassword = null;
 
-    if(request.getParameter("userID") != null){
+    if(request.getParameter("userID") != null) {
         userID = request.getParameter("userID");
     }
-    if(request.getParameter("userPassword") != null){
+    if(request.getParameter("userPassword") != null) {
         userPassword = request.getParameter("userPassword");
     }
-
-    //사용자가 정상적으로 입력하지 않은 경우
-    if(userID == null || userPassword == null){
+    if(userID == null || userPassword == null) {
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('입력이 안 된 사항이 있습니다.');");
-        script.println("history.back()");
+        script.println("history.back();");
         script.println("</script>");
         script.close();
         return; //오류가 발생한 경우 바로 JSP페이지 작동 종료
@@ -50,32 +48,29 @@
         script.close();
         return;
     } else if(result == 0){    //비밀번호가 틀렸을 때
-        session.setAttribute("userID", userID);
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('비밀번호가 틀립니다.');");
         script.println("history.back();");
         script.println("</script>");
         script.close();
-        /*return;*/
+        return;
     } else if(result == -1){    //아이디가 틀렸을 때
-        session.setAttribute("userID", userID);
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('존재하지 않는 아이디입니다.');");
         script.println("history.back();");
         script.println("</script>");
         script.close();
-        /*return;*/
+        return;
     } else if(result == -2){    //데이터베이스 오류
-        session.setAttribute("userID", userID);
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('데이터베이스 오류가 발생했습니다.');");
         script.println("history.back();");
         script.println("</script>");
         script.close();
-        /*return;*/
+        return;
     }
 %>
 

@@ -13,15 +13,16 @@
 
 <%
     request.setCharacterEncoding("UTF-8");
+
     String code = null;
-    if(request.getAttribute("code") != null){ //현재 아이디로 로그인이 되어있는지 확인
+    if(request.getParameter("code") != null){ //현재 아이디로 로그인이 되어있는지 확인
         code = request.getParameter("code");   //sesstion값은 기본적으로 object값을 반환
     }
 
     UserDAO userDAO = new UserDAO();
     String userID = null;
-    if(request.getAttribute("userID") != null){ //현재 아이디로 로그인이 되어있는지 확인
-        userID = (String) request.getParameter("userID");   //sesstion값은 기본적으로 object값을 반환
+    if(session.getAttribute("userID") != null){ //현재 아이디로 로그인이 되어있는지 확인
+        userID = (String) session.getAttribute("userID");   //sesstion값은 기본적으로 object값을 반환
     }
 
     if(userID == null ){
@@ -37,7 +38,7 @@
     //현재 사용자의 이메일 주소를 받아옴
     String userEmail = userDAO.getUserEmail(userID);
     //hash값을 적용한 사용자 이메일을 가져와 일치하는지 확인
-    boolean isRight = (new SHA256().getSHA256(userEmail).equals(code))? true : false;
+    boolean isRight = (new SHA256().getSHA256(userEmail).equals(code)) ? true : false;
 
     //사용자가 보낸 코드가 정상적(true)이라면 메세지 출력
     if (isRight == true) {
@@ -49,11 +50,11 @@
         script.println("</script>");
         script.close();
         return;
-   } else {
+    } else {
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('유효하지 않은 코드입니다.');");
-        script.println("location.href = 'index.jsp'");
+        script.println("location.href = 'userLogin.jsp'");
         script.println("</script>");
         script.close();
         /*return;*/

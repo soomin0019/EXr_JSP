@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="user.UserDAO" %>
+<%@ page import="com.mysql.cj.util.DnsSrv" %>
+<%@ page import="java.awt.print.PrinterGraphics" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +15,32 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+  <%
+    String userID = null;
+    if(session.getAttribute("userID") != null) {
+      userID = (String) session.getAttribute("userID");
+    }
+    if(userID == null) {
+      PrintWriter script = response.getWriter();
+      script.println("<script>");
+      script.println("alert('로그인을 해주세용.');");
+      script.println("location.href = 'userLogin.jsp';");
+      script.println("</script>");
+      script.close();
+      return;
+    }
+
+    boolean emailChecked = new UserDAO().getUserEmailChecked(userID);
+    //이메일 인증이 안 된 사용자에게 인증을 할 수 있도록
+    if(emailChecked == false) {
+      PrintWriter script = response.getWriter();
+      script.println("<script>");
+      script.println("location.href = 'emailSendConfirm.jsp';");
+      script.println("</script>");
+      script.close();
+      return;
+    }
+  %>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index.jsp">강의평가 웹 사이트</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -26,15 +56,24 @@
         <li class="nav-item dropdown"><!--한 번 눌렀을 때 아래로 목록 정렬-->
           <a class="nav-link dropdown-toggle" id="dropdown" data-toggle="dropdown">회원관리</a>
           <div class="dropdown-menu" aria-labelledby="dropdown">
+            <%
+              if(userID == null) {
+            %>
             <a class="dropdown-item" href="userLogin.jsp">로그인</a>
             <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
+            <%
+              } else {
+            %>
             <a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
+            <%
+              }
+            %>
           </div>
         </li>
       </ul>
       <!--검색창 기능-->
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
+      <form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
+        <input name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-2" type="submit">검색</button>
       </form>
     </div>
@@ -49,7 +88,7 @@
         <option value="교양">교양</option>
         <option value="기타">기타</option>
       </select>
-      <input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
+      <input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요."/>
       <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
       <a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a>
       <!--부트스트랩에서는 모달이라는 웹 페이지 위쪽에 등록양식처럼 생겼대-->

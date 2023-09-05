@@ -17,11 +17,11 @@
     if(session.getAttribute("userID") != null) {
       userID = (String) session.getAttribute("userID");
     }
-    if(userID != null) {
+    if(userID == null) {
       PrintWriter script = response.getWriter();
       script.println("<script>");
-      script.println("alert('로그인이 된 상태입니당.');");
-      script.println("location.href = 'index.jsp';");
+      script.println("alert('로그인을 해주세뵵.');");
+      script.println("location.href = 'userLogin.jsp';");
       script.println("</script>");
       script.close();
       return;
@@ -37,7 +37,7 @@
     <!--버튼 눌렀을 때 실행되는 부분(화면인 길 때 옆으로 보이고 좁으면 토글로 열도록-->
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="index.jsp">메인</a>
         </li>
         <li class="nav-item dropdown"><!--한 번 눌렀을 때 아래로 목록 정렬-->
@@ -59,35 +59,22 @@
         </li>
       </ul>
       <!--검색창 기능-->
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
+      <form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
+        <input name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-2" type="submit">검색</button>
       </form>
     </div>
   </nav>
   <!--본문이 들어가는 공간-->
   <section class="container mt-3" style="max-width: 560px">
-    <form method="post" action="./userRegisterAction.jsp">
-      <div class="form-group">
-        <label>아이디</label>
-        <input type="text" name="userID" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>비밀번호</label>
-        <input type="password" name="userPassword" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>이메일</label>
-        <input type="email" name="userEmail" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">회원가입</button>
-    </form>
-
-
+    <div class="alert alert-warning mt-4" role="alert">
+      이메일 주소 인증을 하셔야 이용 가능합니다. 인증 메일을 받지 못하셨나요?
+    </div>
+    <a href="emailSendAction.jsp" class="btn btn-primary">인증메일 다시 받기</a>
   </section>
 
   <footer class="bg-dark mt-4 p-5 text-center" style="color: #FFFFFF">
-    Copyright&copy; 2022나동빈  All Rights Reserved
+    Copyright&copy; 2023 soominL  All Rights Reserved
   </footer>
   <!--제이쿼리, 파퍼, 부트스트랩 자바스크립트 추가-->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
