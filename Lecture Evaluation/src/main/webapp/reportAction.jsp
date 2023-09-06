@@ -52,6 +52,26 @@
         return;
     }
 
+    request.setCharacterEncoding("UTF-8");
+    String reportTitle = null;
+    String reportContent = null;
+    if(request.getParameter("reportTitle") != null ){   //사용자로부터 신고제목을 잘 받았다면
+        reportTitle = request.getParameter("reportTitle");
+    }
+    if(request.getParameter("reportContent") != null ){   //사용자로부터 신고내용을 잘 받았다면
+        reportContent = request.getParameter("reportContent");
+    }
+    if(reportTitle == null || reportContent == null) {
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('입력된 사항이 없습니다.');");
+        script.println("history.back();");
+        script.println("</script>");
+        script.close();
+        return;
+    }
+
+
     //인증이 안 된 사용자라면
     //이메일 인증 메세지를 보내줌
     String host = "http://localhost:8080/";

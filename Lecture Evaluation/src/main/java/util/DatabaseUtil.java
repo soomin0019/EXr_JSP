@@ -12,8 +12,8 @@ public class DatabaseUtil {
             String dbURL = "jdbc:mysql://localhost:3306/LectureEvaluation";
             //3306포트 번호를 사용하는 LectureEvaluation 이름의 mysql DB
             String dbID = "root";
-            String dbPassword = "root";
-            Class.forName("com.mysql.jdbc.Driver");
+            String dbPassword = "1234";
+            Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(dbURL, dbID, dbPassword);
         }catch (Exception e){
             e.printStackTrace();

@@ -1,9 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<<<<<<< HEAD
 <%@ page import="java.io.PrintWriter" %>
-=======
-<%@ page import ="java.io.PrintWriter" %>
->>>>>>> 79ed31e45e6b3c54174ccb42c8550d43c8ff2784
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,24 +13,6 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<<<<<<< HEAD
-  <%
-    String userID = null;
-    if(session.getAttribute("userID") != null) {
-      userID = (String) session.getAttribute("userID");
-    }
-    if(userID != null) {
-      PrintWriter script = response.getWriter();
-      script.println("<script>");
-      script.println("alert('로그인이 된 상태입니당.');");
-      script.println("location.href = 'index.jsp';");
-      script.println("</script>");
-      script.close();
-      return;
-    }
-
-  %>
-=======
 <%
   String userID = null;
   if(session.getAttribute("userID") != null) {
@@ -49,7 +28,7 @@
     /*return;*/
   }
 %>
->>>>>>> 79ed31e45e6b3c54174ccb42c8550d43c8ff2784
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index.jsp">강의평가 웹 사이트</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
