@@ -60,8 +60,9 @@
         </li>
       </ul>
       <!--검색창 기능-->
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
+      <form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
+        <input type="text" name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
+        <%--검색어를 입력했을 때 특정한 검색 url로 이동--%>
         <button class="btn btn-outline-success my-2 my-sm-2" type="submit">검색</button>
       </form>
     </div>

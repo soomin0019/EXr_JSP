@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="user.UserDAO" %>
+<%@ page import="evaluation.EvaluationDTO" %>
+<%@ page import="evaluation.EvaluationDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.net.URLEncoder" %>
+<%--사용자가 어떤 게시물을 검색하는지--%>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +21,28 @@
 <body>
 
   <%
+    request.setCharacterEncoding("UTF-8");
+    String lectureDivide = "전체";    //사용자가 검색한 강의 구분
+    String searchType = "최신순";      // ``          검색 종류
+    String search = "";               //  ``         검색어
+    int pageNumber = 0;
+    if(request.getParameter("lectureDivide") != null) {
+      lectureDivide = request.getParameter("lectureDivide");
+    }
+    if(request.getParameter("searchType") != null) {
+      searchType = request.getParameter("searchType");
+    }
+    if(request.getParameter("search") != null) {
+      search = request.getParameter("search");
+    }
+    if(request.getParameter("pageNumber") != null) {
+      try {
+        pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+      } catch (Exception e) {
+        System.out.println("검색 페이지 오류");
+      }
+    }
+
     String userID = null;
     if(session.getAttribute("userID") != null) {
       userID = (String) session.getAttribute("userID");
@@ -59,7 +86,7 @@
           <div class="dropdown-menu" aria-labelledby="dropdown">
 
             <%
-              if(userID == null) {
+              if (userID == null) {
             %>
             <a class="dropdown-item" href="userLogin.jsp">로그인</a>
             <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
@@ -76,7 +103,8 @@
       </ul>
       <!--검색창 기능-->
       <form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
-        <input name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
+        <input type="text" name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
+        <%--검색어를 입력했을 때 특정한 검색 url로 이동--%>
         <button class="btn btn-outline-success my-2 my-sm-2" type="submit">검색</button>
       </form>
     </div>
@@ -87,9 +115,13 @@
       <!--get 방식으로 사용자에게서 데이터 받아와 서버로 전달 => 검색창 -->
       <select name="LectureDivide" class="form-control mx-1 mt-2">
         <option value="전체">전체</option> <!--옵션을 이용해 어떤 데이터를 보낼 것인지 분류-->
-        <option value="전공">전공</option>
-        <option value="교양">교양</option>
-        <option value="기타">기타</option>
+        <option value="전공" <% if(lectureDivide.equals("전공")) out.println("selected"); %>>전공</option>
+        <option value="교양" <% if(lectureDivide.equals("교양")) out.println("selected"); %>>교양</option>
+        <option value="기타" <% if(lectureDivide.equals("기타")) out.println("selected"); %>>기타</option>
+      </select>
+      <select name="searchType" class="form-control mx-1 mt-2">
+        <option value="최신순">최신순</option> <!--옵션을 이용해 어떤 데이터를 보낼 것인지 분류-->
+        <option value="추천순"><% if(searchType.equals("추천순")) out.println("selected");%>추천순</option>
       </select>
       <input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요."/>
       <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
@@ -97,91 +129,40 @@
       <!--부트스트랩에서는 모달이라는 웹 페이지 위쪽에 등록양식처럼 생겼대-->
       <a class="btn btn-danger mx-1 mt-2" data-toggle="modal" href="#reportModal">신고하기</a>
     </form>
-    <!--카드 등록/ 실제 사용자가 강의를 등록했을 때 어떻게 사용될지의 기능-->
-    <div class="card bg-light mt-3">
-      <div class="card-header bg-light">
-        <div class="row">
-          <div class="col-8 text-left">컴퓨터개론&nbsp;<small>나동빈</small></div>
-          <div class="col-4 text-right">
-            종합<span style="color: red;">A</span>
-          </div>
-        </div>
-      </div>
-      <!--강의명 밑 내용과 추천-->
-      <div class="card-body">
-        <h5 class="card-title">
-          정말 좋은 강의에오&nbsp;<small>(2022년 가을학기)</small>
-        </h5>
-        <p class="card-text">강의가 널널하고 학점이 잘 나와요</p>
-        <div class="row">
-          <div class="col-9 text-left">
-            성적<span style="color: red;">A</span>
-            널널<span style="color: red;">A</span>
-            강의<span style="color: red;">B</span>
-            <span style="color: green;">(추천:15명)</span>
-          </div>
-          <!--강의 추천하는지 오른쪽 아래 위치-->
-          <div class="col-3 text-right">
-            <a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evaluationID=">추천</a>
-            <a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evaluationID=">삭제</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--카드 등록/ 실제 사용자가 강의를 등록했을 때 어떻게 사용될지의 기능-->
-    <div class="card bg-light mt-3">
-      <div class="card-header bg-light">
-        <div class="row">
-          <div class="col-8 text-left">컴퓨터개론&nbsp;<small>나동빈</small></div>
-          <div class="col-4 text-right">
-            종합<span style="color: red;">A</span>
-          </div>
-        </div>
-      </div>
-      <!--강의명 밑 내용과 추천-->
-      <div class="card-body">
-        <h5 class="card-title">
-          괜춘&nbsp;<small>(2022년 가을학기)</small>
-        </h5>
-        <p class="card-text">학점 잘 나와요</p>
-        <div class="row">
-          <div class="col-9 text-left">
-            성적<span style="color: red;">A</span>
-            널널<span style="color: red;">A</span>
-            강의<span style="color: red;">B</span>
-            <span style="color: green;">(추천:15명)</span>
-          </div>
-          <!--강의 추천하는지 오른쪽 아래 위치-->
-          <div class="col-3 text-right">
-            <a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evaluationID=">추천</a>
-            <a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evaluationID=">삭제</a>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <%--사용자가 검색한 내용이 리스트에 담겨서 출력되도록--%>
+    <%
+      ArrayList<EvaluationDTO> evaluationList = new ArrayList<EvaluationDTO>();
+      evaluationList = new EvaluationDAO().getList(lectureDivide, searchType, search, pageNumber);
+      if(evaluationList != null) {
+        for (int i = 0; i < evaluationList.size(); i++) {
+          if(i == 5) break;   //페이지 안 6개 중 5개까지만 출력되도록
+          EvaluationDTO evaluation = evaluationList.get(i);
+
+    %>
 
     <!--카드 등록/ 실제 사용자가 강의를 등록했을 때 어떻게 사용될지의 기능-->
     <div class="card bg-light mt-3">
       <div class="card-header bg-light">
         <div class="row">
-          <div class="col-8 text-left">컴퓨터개론&nbsp;<small>나동빈</small></div>
+          <div class="col-8 text-left"><%= evaluation.getLectureName()%>&nbsp;<small><%= evaluation.getProfessorName()%></small></div>
           <div class="col-4 text-right">
-            종합<span style="color: red;">A</span>
+            종합<span style="color: red;"><%= evaluation.getTotalScore()%></span>
           </div>
         </div>
       </div>
       <!--강의명 밑 내용과 추천-->
       <div class="card-body">
         <h5 class="card-title">
-          정말 좋은 강의에오&nbsp;<small>(2022년 가을학기)</small>
+          <%= evaluation.getEvaluationTitle()%>&nbsp;<small>(<%= evaluation.getLectureYear()%>)년 <%= evaluation.getSemesterDivide()%></small>
         </h5>
-        <p class="card-text">강의가 널널하고 학점이 잘 나와요</p>
+        <p class="card-text"><%= evaluation.getEvaluationContent()%></p>
         <div class="row">
           <div class="col-9 text-left">
-            성적<span style="color: red;">A</span>
-            널널<span style="color: red;">A</span>
-            강의<span style="color: red;">B</span>
-            <span style="color: green;">(추천:15명)</span>
+            성적<span style="color: red;"><%= evaluation.getCreditScore()%></span>
+            널널<span style="color: red;"><%= evaluation.getComfortableScore()%></span>
+            강의<span style="color: red;"><%= evaluation.getLectureScore()%></span>
+            <span style="color: green;">(추천:<%= evaluation.getLikeCount()%>)</span>
           </div>
           <!--강의 추천하는지 오른쪽 아래 위치-->
           <div class="col-3 text-right">
@@ -191,9 +172,46 @@
         </div>
       </div>
     </div>
+    <%
+        }
+      }
+    %>
 
   </section>
 
+  <%--페이지네이션--%>
+  <ul class="pagination justify-content-center mt-3">
+    <li class="page-item">
+      <%
+        if(pageNumber <= 0) {   //이 경우엔 페이지를 이동할 필요가 없으므로
+      %>
+      <a class="page-link disabled">이전</a>
+      <%
+        } else {
+      %>
+      <a class="page-link" href="./index.jsp?lectureDivide=<%=URLEncoder.encode(lectureDivide,"UTF-8")%>
+      &searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>&search=<%=URLEncoder.encode(search,"UTF-8")%>
+      &pageNumber=<%=pageNumber - 1%>">이전</a>
+      <%
+        }
+      %>
+    </li>
+    <li class="page-item">
+      <%
+        if(evaluationList.size() < 6) {   /*이 경우엔 뒤(페이지)로 갈 수 없으므로*/
+      %>
+      <a class="page-link disabled">다음</a>
+      <%
+      } else {
+      %>
+      <a class="page-link" href="./index.jsp?lectureDivide=<%= URLEncoder.encode(lectureDivide, "UTF-8")%>&searchType=
+        <%= URLEncoder.encode(searchType, "UTF-8")%>&search=<%= URLEncoder.encode(search, "UTF-8")%>
+        &pageNumber=<%= pageNumber + 1 %>">다음</a>
+      <%
+        }
+      %>
+    </li>
+  </ul>
   <!--모달 양식, 등록하기 버튼을 눌렀을 때 반응 기능-->
   <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
     <div class="modal-dialog">
@@ -354,6 +372,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
 </body>
-
-
 </html>
